@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserRepository {
     
-    User findByUserId(Integer uid);
-    void insert(Integer uid);
+    User findByUserId(String uid);
+    void insert(String uid);
 }

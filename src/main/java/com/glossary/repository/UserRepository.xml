@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glossary.repository.UserRepository">
 <!-- created時にuserIdを取得する（検索の時に必要だから） -->
-<select id="findByUserId">
+<select id="findByUserId" resultType="com.glossary.domain.User">
 select * from users where uid=#{uid}
 </select>
 <insert id="insert">
-insert users(uid) values(#{uid})
+insert into users(uid) values(#{uid})
 </insert>
 </mapper>

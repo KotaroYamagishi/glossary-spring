@@ -7,8 +7,8 @@ import com.glossary.domain.Glossary;
 import lombok.Builder;
 import lombok.Getter;
 
-@Getter
 @Builder
+@Getter
 public class GlossaryResponse {
     private List<Glossary> glossaryList;
     private Glossary glossary;

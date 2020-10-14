@@ -23,15 +23,15 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable Integer userId){
+    public ResponseEntity<UserResponse> getUser(@PathVariable String userId){
         System.out.println("sd");
         User user=userService.findByUserId(userId);
         UserResponse response=UserResponse.builder().user(user).build();
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-    @PostMapping("/user")
-    public ResponseEntity<HttpStatus> setUser(@PathVariable Integer uid){
+    @PostMapping("/user/{uid}")
+    public ResponseEntity<HttpStatus> setUser(@PathVariable String uid){
         userService.insert(uid);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

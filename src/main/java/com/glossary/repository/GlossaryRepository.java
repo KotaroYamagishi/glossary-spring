@@ -12,8 +12,10 @@ public interface GlossaryRepository {
     
     List<Glossary> findAll();
     List<Glossary> findByName(@Param("name") String name);
+    List<Glossary> findByCategoryId(Integer categoryId);
     Glossary findById(@Param("id") Integer id);
     void insert(@Param("glossary") Glossary glossary);
     void update(@Param("glossary") Glossary glossary);
+    void deleteCategoryId(Integer categoryId);
     void delete(Integer id);
 }

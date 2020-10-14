@@ -25,6 +25,10 @@ public class GlossaryService {
         return glossaryRepository.findByName(name);
     }
 
+    public List<Glossary> findByCategoryId(Integer id){
+        return glossaryRepository.findByCategoryId(id);
+    }
+
     public Glossary findById(Integer id){
         return glossaryRepository.findById(id);
     }
@@ -42,7 +46,12 @@ public class GlossaryService {
         glossary.setId(glossaryAddRequest.getId());
         glossary.setName(glossaryAddRequest.getName());
         glossary.setDescription(glossaryAddRequest.getDescription());
+        glossary.setCategoryId(glossaryAddRequest.getCategoryId());
         glossaryRepository.update(glossary);
+    }
+
+    public void deleteCategoryId(Integer categoryId){
+        glossaryRepository.deleteCategoryId(categoryId);
     }
 
     public void delete(Integer id){

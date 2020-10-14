@@ -14,11 +14,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User findByUserId(Integer uid){
+    public User findByUserId(String uid){
         return userRepository.findByUserId(uid);
     }
 
-    public void insert(Integer uid){
+    public void insert(String uid){
         userRepository.insert(uid);
     }
 }

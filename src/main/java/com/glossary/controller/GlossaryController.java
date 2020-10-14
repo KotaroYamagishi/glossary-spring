@@ -1,6 +1,5 @@
 package com.glossary.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import com.glossary.domain.Glossary;
@@ -37,6 +36,13 @@ public class GlossaryController {
     public ResponseEntity<GlossaryResponse> findById(@PathVariable("id") Integer id) {
         Glossary glossary = glossaryService.findById(id);
         GlossaryResponse glossaryResponse = GlossaryResponse.builder().glossary(glossary).build();
+        return new ResponseEntity<>(glossaryResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/cate/{id}")
+    public ResponseEntity<GlossaryResponse> finByCategoryId(@PathVariable("id") Integer id){
+        List<Glossary> glossaryList=glossaryService.findByCategoryId(id);
+        GlossaryResponse glossaryResponse=GlossaryResponse.builder().glossaryList(glossaryList).build();
         return new ResponseEntity<>(glossaryResponse, HttpStatus.OK);
     }
 

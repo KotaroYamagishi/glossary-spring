@@ -9,5 +9,6 @@ public class Glossary {
     private Integer id;
     private String name;
     private String description;
+    private Integer categoryId;
     private Date createAt;
 }
