@@ -6,4 +6,5 @@ import lombok.Data;
 public class CategoryAddRequest {
     private Integer id;
     private String name;
+    private String userId;
 }

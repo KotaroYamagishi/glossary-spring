@@ -17,15 +17,18 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> findAll(){
-        return categoryRepository.findAll();
+    public List<Category> findAll(String userId){
+        return categoryRepository.findAll(userId);
     }
     public Category findById(Integer id){
         return categoryRepository.findById(id);
     }
-    public Integer insert(String name){
-        categoryRepository.insert(name);
-        return categoryRepository.findByName(name).getId();
+    public Integer insert(CategoryAddRequest categoryWAddRequest){
+        Category category =new Category();
+        category.setName(categoryWAddRequest.getName());
+        category.setUserId(categoryWAddRequest.getUserId());
+        categoryRepository.insert(category);
+        return categoryRepository.findByName(category).getId();
     }
     public void update(CategoryAddRequest categoryAddRequest){
         Category category=new Category();

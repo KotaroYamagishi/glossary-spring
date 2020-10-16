@@ -17,28 +17,31 @@ public class GlossaryService {
     @Autowired
     private GlossaryRepository glossaryRepository;
 
-    public List<Glossary> findAll(){
-        return glossaryRepository.findAll();
+    public List<Glossary> findAll(String userId){
+        return glossaryRepository.findAll(userId);
     }
 
-    public List<Glossary> findByName(String name){
-        return glossaryRepository.findByName(name);
+    public List<Glossary> findByName(String name,String userId){
+        return glossaryRepository.findByName(name,userId);
     }
 
     public List<Glossary> findByCategoryId(Integer id){
         return glossaryRepository.findByCategoryId(id);
     }
 
-    public Glossary findById(Integer id){
-        return glossaryRepository.findById(id);
+    public Glossary findById(Integer id,String userId){
+        return glossaryRepository.findById(id,userId);
     }
 
-    public void insert(GlossaryAddRequest glossaryAddRequest){
+    public Integer insert(GlossaryAddRequest glossaryAddRequest){
         Glossary glossary =new Glossary();
         glossary.setId(glossaryAddRequest.getId());
         glossary.setName(glossaryAddRequest.getName());
         glossary.setDescription(glossaryAddRequest.getDescription());
-        glossaryRepository.insert(glossary);
+        glossary.setUserId(glossaryAddRequest.getUserId());
+        glossaryRepository.insertGlossary(glossary);
+        Glossary insertGlossary=glossaryRepository.findByInsertId(glossaryAddRequest.getUserId());
+        return insertGlossary.getId();
     }
 
     public void update(GlossaryAddRequest glossaryAddRequest){
@@ -46,6 +49,7 @@ public class GlossaryService {
         glossary.setId(glossaryAddRequest.getId());
         glossary.setName(glossaryAddRequest.getName());
         glossary.setDescription(glossaryAddRequest.getDescription());
+        glossary.setUserId(glossaryAddRequest.getUserId());
         glossary.setCategoryId(glossaryAddRequest.getCategoryId());
         glossaryRepository.update(glossary);
     }

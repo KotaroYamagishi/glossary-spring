@@ -12,4 +12,5 @@ import lombok.Getter;
 public class GlossaryResponse {
     private List<Glossary> glossaryList;
     private Glossary glossary;
+    private Integer glossaryId;
 }

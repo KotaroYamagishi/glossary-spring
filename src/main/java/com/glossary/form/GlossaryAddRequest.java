@@ -7,5 +7,6 @@ public class GlossaryAddRequest {
     private Integer id;
     private String name;
     private String description;
+    private String userId;
     private Integer categoryId;
 }

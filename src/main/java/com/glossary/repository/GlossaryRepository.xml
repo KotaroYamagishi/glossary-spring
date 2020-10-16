@@ -2,19 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glossary.repository.GlossaryRepository">
     <select id="findAll" resultType="com.glossary.domain.Glossary">
-    select * from memos order by create_at desc 
+    select * from memos where user_id=#{userId} order by create_at desc 
     </select>
     <select id="findById" resultType="com.glossary.domain.Glossary">
-    select * from memos where id=#{id} 
+    select * from memos where id=#{id} and user_id=#{userId}
     </select>
     <select id="findByCategoryId" resultType="com.glossary.domain.Glossary">
-    select * from memos where category_id=#{categoryId}
+    select * from memos where category_id=#{categoryId} 
     </select>
     <select id="findByName" resultType="com.glossary.domain.Glossary">
-    select * from memos where name like CONCAT('%', #{name}, '%') order by create_at desc
+    select * from memos where name like CONCAT('%', #{name}, '%') and user_id=#{userId} order by create_at desc
     </select>
-    <insert id="insert">
-    insert into memos(name,description,create_at) values(#{glossary.name},#{glossary.description},current_timestamp)
+    <select id="findByInsertId" resultType="com.glossary.domain.Glossary">
+    select * from memos where user_id=#{userId} order by id desc limit 1
+    </select>
+    <insert id="insertGlossary">
+    insert into memos(name,description,user_id,create_at) values(#{glossary.name},#{glossary.description},#{glossary.userId},current_timestamp)
     </insert>
     <update id="update">
     update memos set 

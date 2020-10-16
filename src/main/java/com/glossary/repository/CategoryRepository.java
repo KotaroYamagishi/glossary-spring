@@ -9,10 +9,10 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface CategoryRepository {
-    List<Category> findAll();
+    List<Category> findAll(String userId);
     Category findById(Integer id);
-    Category findByName(String name);
-    void insert(String name);
+    Category findByName(@Param("category") Category category);
+    void insert(@Param("category")Category category);
     void update(@Param("category") Category category);
     void delete(Integer id);
 }

@@ -27,15 +27,15 @@ public class CategoryController {
     @Autowired
     private GlossaryService glossaryService;
 
-    @GetMapping("/category")
-    public ResponseEntity<CategoryResponse> findAll(){
-        List<Category> categoryList= categoryService.findAll();
+    @GetMapping("/category/{userId}")
+    public ResponseEntity<CategoryResponse> findAll(@PathVariable("userId") String userId){
+        List<Category> categoryList= categoryService.findAll(userId);
         CategoryResponse categoryResponse= CategoryResponse.builder().categoryList(categoryList).build();
         return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/category/{id}")
-    public ResponseEntity<CategoryResponse> findById(@PathVariable Integer id){
+    @GetMapping("/category/find/{id}")
+    public ResponseEntity<CategoryResponse> findById(Integer id){
         Category category= categoryService.findById(id);
         CategoryResponse categoryResponse= CategoryResponse.builder().category(category).build();
         return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
@@ -43,7 +43,7 @@ public class CategoryController {
 
     @PostMapping("/category/insert")
     public ResponseEntity<CategoryResponse> insert(@RequestBody CategoryAddRequest categoryAddRequest){
-        Integer categoryId=categoryService.insert(categoryAddRequest.getName());
+        Integer categoryId=categoryService.insert(categoryAddRequest);
         System.out.println(categoryId);
         CategoryResponse categoryResponse=CategoryResponse.builder().categoryId(categoryId).build();
         return new ResponseEntity<>(categoryResponse,HttpStatus.CREATED);

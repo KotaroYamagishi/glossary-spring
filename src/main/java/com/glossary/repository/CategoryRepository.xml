@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.glossary.repository.CategoryRepository">
 <select id="findAll" resultType="com.glossary.domain.Category">
-select * from category order by create_at desc
+select * from category where user_id =#{userId} order by create_at desc
 </select>
 <select id="findById" resultType="com.glossary.domain.Category">
 select * from category where id=#{id} order by create_at desc
 </select>
 <select id="findByName" resultType="com.glossary.domain.Category">
-select * from category where name=#{name}
+select * from category where name=#{category.name} and user_id=#{category.userId}
 </select>
 <insert id="insert">
-insert into category (name,create_at) values(#{name},current_timestamp)
+insert into category (name,user_id,create_at) values(#{category.name},#{category.userId},current_timestamp)
 </insert>
 <update id="update">
 update category set name=#{category.name},create_at=current_timestamp where id=#{category.id}

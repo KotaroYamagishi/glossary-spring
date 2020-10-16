@@ -25,16 +25,16 @@ public class GlossaryController {
     @Autowired
     private GlossaryService glossaryService;
 
-    @GetMapping("/")
-    public ResponseEntity<GlossaryResponse> findAll() {
-        List<Glossary> glossaryList = glossaryService.findAll();
+    @GetMapping("/{userId}")
+    public ResponseEntity<GlossaryResponse> findAll(@PathVariable("userId") String userId) {
+        List<Glossary> glossaryList = glossaryService.findAll(userId);
         GlossaryResponse glossaryResponse = GlossaryResponse.builder().glossaryList(glossaryList).build();
         return new ResponseEntity<>(glossaryResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GlossaryResponse> findById(@PathVariable("id") Integer id) {
-        Glossary glossary = glossaryService.findById(id);
+    @GetMapping("/{userId}/{id}")
+    public ResponseEntity<GlossaryResponse> findById(@PathVariable("userId") String userId,@PathVariable("id") Integer id) {
+        Glossary glossary = glossaryService.findById(id,userId);
         GlossaryResponse glossaryResponse = GlossaryResponse.builder().glossary(glossary).build();
         return new ResponseEntity<>(glossaryResponse, HttpStatus.OK);
     }
@@ -46,18 +46,20 @@ public class GlossaryController {
         return new ResponseEntity<>(glossaryResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/search/{name}")
-    public ResponseEntity<GlossaryResponse> findByName(@PathVariable("name") String name){
-        List<Glossary> glossaryList=glossaryService.findByName(name);
+    @GetMapping("{userId}/search/{name}")
+    public ResponseEntity<GlossaryResponse> findByName(@PathVariable("userId") String userId,@PathVariable("name") String name){
+        List<Glossary> glossaryList=glossaryService.findByName(name,userId);
         GlossaryResponse glossaryResponse=GlossaryResponse.builder().glossaryList(glossaryList).build();
         return new ResponseEntity<>(glossaryResponse, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<HttpStatus> addGlossary(@RequestBody GlossaryAddRequest glossaryAddRequest) {
+    public ResponseEntity<GlossaryResponse> addGlossary(@RequestBody GlossaryAddRequest glossaryAddRequest) {
         System.out.println(glossaryAddRequest);
-        glossaryService.insert(glossaryAddRequest);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Integer id=glossaryService.insert(glossaryAddRequest);
+        System.out.println(id);
+        GlossaryResponse response=GlossaryResponse.builder().glossaryId(id).build();
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
     @PostMapping("/edit")
